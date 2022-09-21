@@ -21,6 +21,12 @@ app.get('/campgrounds', async (req, res) => {
 	res.render('campgrounds/index', { campgrounds });
 });
 
+app.get('/campgrounds/:id', async (req, res) => {
+	const { id } = req.params;
+	const camp = await Campground.findById(id);
+	res.render('campgrounds/show', { camp });
+});
+
 app.listen(3000, () => {
 	console.log('listening on port 3000');
 });
