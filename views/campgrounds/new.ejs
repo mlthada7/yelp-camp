@@ -1,19 +1,37 @@
 <% layout('layouts/boilerplate.ejs') %>
 
-<h1>Add new campground</h1>
-
-<form action="/campgrounds" method="post">
-	<div class="">
-		<label for="title">Title </label>
-		<!-- campground[title] refers to group content in json -->
-		<input type="text" name="campground[title]" id="title" />
+<div class="row mb-5">
+	<h1 class="text-center mb-4">Add new campground</h1>
+	<div class="col-6 offset-3">
+		<form action="/campgrounds" method="post">
+			<div class="mb-3">
+				<label for="title" class="form-label">Title </label>
+				<!-- campground[title] refers to group content in json -->
+				<input type="text" class="form-control" name="campground[title]" id="title" />
+			</div>
+			<div class="mb-3">
+				<label for="location" class="form-label">Location </label>
+				<input type="text" class="form-control" name="campground[location]" id="location" />
+			</div>
+			<div class="mb-3">
+				<label for="image" class="form-label">Image URL </label>
+				<input type="text" class="form-control" name="campground[image]" id="image" />
+			</div>
+			<div class="mb-3">
+				<label for="price" class="form-label">Price </label>
+				<div class="input-group">
+					<span class="input-group-text" id="price-label">$</span>
+					<input type="text" class="form-control" name="campground[price]" placeholder="0.00" aria-label="price" aria-describedby="price-label" />
+				</div>
+			</div>
+			<div class="mb-3">
+				<label for="description" class="form-label">Description</label>
+				<textarea class="form-control" id="description" name="campground[description]" rows="3"></textarea>
+			</div>
+			<div class="mb-3">
+				<button class="btn btn-primary">Add campground</button>
+			</div>
+		</form>
+		<a href="/campgrounds">Cancel</a>
 	</div>
-	<div class="">
-		<label for="location">Location </label>
-		<input type="text" name="campground[location]" id="location" />
-	</div>
-	<button>Add campground</button>
-</form>
-
-<br />
-<a href="/campgrounds">Cancel</a>
+</div>
