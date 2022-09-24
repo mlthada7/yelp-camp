@@ -40,14 +40,13 @@ app.get('/campgrounds/new', (req, res) => {
 app.post(
 	'/campgrounds',
 	catchAsync(async (req, res, next) => {
-		// res.send(req.body.campground);
-		try {
-			const campground = new Campground(req.body.campground);
-			await campground.save();
-			res.redirect(`/campgrounds/${campground._id}`);
-		} catch (e) {
-			next(e);
+		// validasi jika form kosong
+		if (!req.body.campground) {
+			throw new ExpressError('Invalid Campground Data', 400);
 		}
+		const campground = new Campground(req.body.campground);
+		await campground.save();
+		res.redirect(`/campgrounds/${campground._id}`);
 	})
 );
 
@@ -85,9 +84,16 @@ app.delete(
 	})
 );
 
+app.all('*', (req, res, next) => {
+	next(new ExpressError('Page not found', 404));
+});
+
 // error handling middleware
+// all error masuk sini
 app.use((err, req, res, next) => {
-	res.send('Oh boy.. something went wrong');
+	const { status = 500 } = err;
+	if (!err.message) err.message = 'Oh no.. something went wrong!';
+	res.status(status).render('error', { err });
 });
 
 app.listen(3000, () => {
