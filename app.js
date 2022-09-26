@@ -103,6 +103,7 @@ app.delete(
 	'/campgrounds/:id',
 	catchAsync(async (req, res) => {
 		const { id } = req.params;
+		// Triggers the findOneAndDelete middleware in campgrounds.js
 		await Campground.findByIdAndDelete(id);
 		res.redirect('/campgrounds');
 	})
