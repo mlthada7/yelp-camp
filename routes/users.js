@@ -37,17 +37,15 @@ router.get('/login', (req, res) => {
 // With passport middleware
 router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), async (req, res) => {
 	req.flash('success', `Welcome back, ${req.user.username}!`);
-	res.redirect('/campgrounds');
+	const redirectUrl = req.session.returnTo || '/campgrounds';
+	delete req.session.returnTo;
+	res.redirect(redirectUrl);
 });
 
-router.get('/logout', async (req, res) => {
-	req.logout(function (err) {
-		if (err) {
-			return next(err);
-		}
-		req.flash('success', 'Goodbye!');
-		res.redirect('/campgrounds');
-	});
+router.get('/logout', (req, res) => {
+	req.logout();
+	req.flash('success', 'Goodbye!');
+	res.redirect('/campgrounds');
 });
 
 module.exports = router;
