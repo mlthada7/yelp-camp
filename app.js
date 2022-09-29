@@ -7,6 +7,9 @@ const methodOverride = require('method-override');
 const ExpressError = require('./utils/ExpressError');
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
 
 const campgroundsRoutes = require('./routes/campgrounds');
 const reviewsRoutes = require('./routes/reviews');
@@ -40,10 +43,32 @@ const sessionConfig = {
 app.use(session(sessionConfig));
 app.use(flash());
 
+//! Middleware from passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+//! Middleware from passort-local-mongoose
+passport.use(new LocalStrategy(User.authenticate()));
+// Store user in session
+passport.serializeUser(User.serializeUser());
+// Get user out of session
+passport.deserializeUser(User.deserializeUser());
+
 app.use((req, res, next) => {
 	res.locals.success = req.flash('success');
 	res.locals.error = req.flash('error');
 	next();
+});
+
+// test
+app.get('/fakeuser', async (req, res, next) => {
+	const user = new User({
+		email: 'hd@gmail.com',
+		username: 'hada',
+	});
+	// use Pbkdf2 hash algorithm
+	const newUser = await User.register(user, 'rahasia');
+	res.send(newUser);
 });
 
 //* <=== CAMPGROUND ROUTES ===>
