@@ -63,17 +63,6 @@ app.use((req, res, next) => {
 	next();
 });
 
-// test
-app.get('/fakeuser', async (req, res, next) => {
-	const user = new User({
-		email: 'hd@gmail.com',
-		username: 'hada',
-	});
-	// use Pbkdf2 hash algorithm
-	const newUser = await User.register(user, 'rahasia');
-	res.send(newUser);
-});
-
 //* <=== USER ===>
 app.use('/', usersRoutes);
 
