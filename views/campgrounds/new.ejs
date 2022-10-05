@@ -3,7 +3,7 @@
 <div class="row mb-5">
 	<h1 class="text-center mb-4">Add new campground</h1>
 	<div class="col-6 offset-3">
-		<form action="/campgrounds" method="post" class="validated-form" novalidate>
+		<form action="/campgrounds" method="post" class="validated-form" novalidate enctype="multipart/form-data">
 			<div class="mb-3">
 				<label for="title" class="form-label">Title </label>
 				<!-- campground[title] refers to group content in json -->
@@ -17,7 +17,7 @@
 			</div>
 			<div class="mb-3">
 				<label for="image" class="form-label">Image URL </label>
-				<input type="text" class="form-control" name="campground[image]" id="image" required />
+				<input type="file" class="form-control" name="image" id="image" required multiple />
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="mb-3">
