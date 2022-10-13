@@ -45,7 +45,7 @@
 			</div>
 			<div class="mb-3">
 				<% camp.images.forEach((img, i) => { %>
-				<img src="<%= img.url %>" alt="" class="img-fluid img-thumbnail" />
+				<img src="<%= img.thumbnail %>" alt="" class="img-fluid img-thumbnail" />
 				<div class="input-group mb-3">
 					<div class="input-group-text">
 						<!-- The value of checked img is added to deleteImages[] -->
@@ -53,7 +53,6 @@
 						<label for="image-<%=i%>">Delete?</label>
 					</div>
 				</div>
-
 				<% }) %>
 			</div>
 			<div class="mb-3">

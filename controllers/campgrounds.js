@@ -14,27 +14,27 @@ module.exports.renderNewForm = (req, res) => {
 };
 
 module.exports.createCampground = async (req, res, next) => {
-	// Test get longitude and latitude from location
+	// Result in geoJSON
+	// coordinates in longitude, latitude
 	const geoData = await geocodingService
 		.forwardGeocode({
 			query: req.body.campground.location,
 			limit: 1,
 		})
 		.send();
-	res.send(geoData.body.features[0].geometry.coordinates); // coordinates in longitude, latitude
-
-	// const campground = new Campground(req.body.campground);
-	// campground.images = req.files.map((file) => {
-	// 	return {
-	// 		url: file.path,
-	// 		filename: file.filename,
-	// 	};
-	// });
-	// campground.author = req.user._id;
-	// await campground.save();
-	// console.log(campground);
-	// req.flash('success', 'Campground Data Successfully saved!');
-	// res.redirect(`/campgrounds/${campground._id}`);
+	const campground = new Campground(req.body.campground);
+	campground.geometry = geoData.body.features[0].geometry;
+	campground.images = req.files.map((file) => {
+		return {
+			url: file.path,
+			filename: file.filename,
+		};
+	});
+	campground.author = req.user._id;
+	await campground.save();
+	console.log(campground);
+	req.flash('success', 'Campground Data Successfully saved!');
+	res.redirect(`/campgrounds/${campground._id}`);
 };
 
 module.exports.showCampground = async (req, res) => {
