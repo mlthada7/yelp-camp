@@ -7,9 +7,7 @@ const ImageSchema = new Schema({
 	url: String,
 	filename: String,
 });
-
 // https://res.cloudinary.com/dpgxkpisf/image/upload/v1665221131/YelpCamp/c8dysk82vcen4kjwgsdf.jpg
-
 ImageSchema.virtual('thumbnail').get(function () {
 	return this.url.replace('/upload', '/upload/w_200');
 });
@@ -20,6 +18,18 @@ const CampgroundSchema = new Schema({
 	description: String,
 	location: String,
 	images: [ImageSchema],
+	geometry: {
+		// Following the geoJSON pattern
+		type: {
+			type: String,
+			enum: ['Point'],
+			required: true,
+		},
+		coordinates: {
+			type: [Number],
+			required: true,
+		},
+	},
 	author: {
 		type: Schema.Types.ObjectId,
 		ref: 'User',

@@ -6,7 +6,7 @@
 		<form action="/campgrounds/<%=camp._id%>?_method=PUT" method="POST" class="validated-form" novalidate enctype="multipart/form-data">
 			<div class="mb-3">
 				<label class="form-label" for="title">Title</label>
-				<input class="form-control" type="text" id="title" name="campground[title]" value="<%=camp.title %>" required />
+				<input class="form-control" type="text" id="title" name="campground[title]" value="<%=camp.title %>" required autofocus />
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="mb-3">
