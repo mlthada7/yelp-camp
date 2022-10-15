@@ -101,7 +101,10 @@
 </div>
 
 <script>
-	const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+	const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+	// Passed it to showPageMap.js
 	const campground = <%- JSON.stringify(camp) %>;
+	// console.log(typeof(campground));
 </script>
+
 <script src="/js/showPageMap.js"></script>
