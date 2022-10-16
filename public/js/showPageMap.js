@@ -9,6 +9,9 @@ const map = new mapboxgl.Map({
 	projection: 'globe', // display the map as a 3D globe
 });
 
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+
 // Create a default Marker and add it to the map.
 const marker1 = new mapboxgl.Marker()
 	.setLngLat(campground.geometry.coordinates)

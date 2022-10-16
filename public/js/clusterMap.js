@@ -1,10 +1,13 @@
 mapboxgl.accessToken = mapToken;
 const map = new mapboxgl.Map({
-	container: 'map',
+	container: 'cluster-map',
 	style: 'mapbox://styles/mapbox/dark-v10',
 	center: [-103.5917, 40.6699],
 	zoom: 3,
 });
+
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl());
 
 map.on('load', () => {
 	map.addSource('campgrounds', {
