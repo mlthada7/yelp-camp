@@ -1,9 +1,9 @@
 if (process.env.NODE_ENV !== 'production') {
-	require('dotenv').config();
+	require('dotenv').config(); // require .env only in development
 }
 
-// Akses di .env
-// console.log(process.env.CLOUDINARY_KEY);
+// require('dotenv').config();
+// command to run in production: NODE_ENV=production node app.js
 
 const express = require('express');
 const app = express();
@@ -41,11 +41,13 @@ app.use(express.static(path.join(__dirname, 'public'))); // To serve static asse
 app.use(mongoSanitize());
 
 const sessionConfig = {
+	name: 'session',
 	secret: 'mysecret',
 	resave: false,
 	saveUninitialized: true,
 	cookie: {
 		httpOnly: true,
+		// secure: true,
 		expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
 		maxAge: 1000 * 60 * 60 * 24 * 7,
 	},
