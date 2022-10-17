@@ -25,8 +25,7 @@ const campgroundsRoutes = require('./routes/campgrounds');
 const reviewsRoutes = require('./routes/reviews');
 const usersRoutes = require('./routes/users');
 
-// process.env.DB_URL
-const dbUrl = 'mongodb://localhost:27017/yelp-camp';
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
 
 mongoose.connect(dbUrl);
 
@@ -45,6 +44,8 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public'))); // To serve static assets in public folder
 app.use(mongoSanitize());
 
+const secret = process.env.SECRET || 'mysecret';
+
 // Store session in mongo
 const store = MongoStore.create({
 	mongoUrl: dbUrl,
@@ -58,7 +59,7 @@ store.on('error', function (e) {
 // Session stored in memory
 const sessionConfig = {
 	name: 'session',
-	secret: 'mysecret',
+	secret,
 	resave: false,
 	saveUninitialized: true,
 	cookie: {
