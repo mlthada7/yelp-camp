@@ -2,6 +2,7 @@
 
 <div id="cluster-map" class="mb-4"></div>
 
+<% if(campgrounds.length) { %>
 <h1 class="text-center">All Campgrounds</h1>
 <a href="/campgrounds/new" class="btn btn-secondary">Add new campground</a>
 
@@ -25,6 +26,8 @@
 		</div>
 	</div>
 </div>
+<% } %> <% } else { %>
+<h4 class="text-center py-5">Sorry, campgrounds data is still empty</h4>
 <% } %>
 
 <script>
